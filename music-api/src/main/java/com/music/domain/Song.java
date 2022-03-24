@@ -7,7 +7,7 @@ public class Song {
 
     private Integer id;
 
-    private Integer singerName;
+    private String singerName;
 
     private String name;
 
@@ -29,11 +29,11 @@ public class Song {
         this.id = id;
     }
 
-    public Integer getSingerName() {
+    public String getSingerName() {
         return singerName;
     }
 
-    public void setSingerId(Integer singerName) {
+    public void setSingerName(String singerName) {
         this.singerName = singerName;
     }
 
