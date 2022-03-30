@@ -54,6 +54,9 @@ public class ConsumerController {
             jsonObject.put("msg", "用户名或密码错误");
             return jsonObject;
         }
+        if (avator.equals("") || avator == null){
+            avator = "/img/user.jpg";
+        }
         Consumer consumer = new Consumer();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date myBirth = new Date();
