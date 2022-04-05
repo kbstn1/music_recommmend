@@ -69,4 +69,7 @@ public class SongServiceImpl implements SongService {
     {
         return songMapper.songOfName(name);
     }
+
+    @Override
+    public List<Song> collectSongOfUser(Integer userId) { return songMapper.collectSongOfUser(userId);}
 }

@@ -206,4 +206,7 @@
         pic = #{pic,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <select id="collectSongOfUser" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select * from collect,song where collect.user_id=#{userId} and collect.song_id=song.id
+    </select>
 </mapper>

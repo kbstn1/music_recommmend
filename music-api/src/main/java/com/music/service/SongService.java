@@ -23,4 +23,6 @@ public interface SongService {
     List<Song> songOfSingerName(String name);
 
     List<Song> songOfName(String name);
+
+    List<Song> collectSongOfUser(Integer userId);
 }

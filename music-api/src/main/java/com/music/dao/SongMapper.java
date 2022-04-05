@@ -36,4 +36,6 @@ public interface SongMapper {
     List<Song> songOfSingerName(String name);
 
     List<Song> songOfName(String name);
+
+    List<Song> collectSongOfUser(Integer id);
 }

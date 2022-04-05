@@ -66,7 +66,7 @@ public class CollectController {
     }
 
     //删除收藏的歌曲
-    @RequestMapping(value = "/collection/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/collection/delete", method = RequestMethod.DELETE)
     public Object deleteCollection(HttpServletRequest req){
         String user_id = req.getParameter("userId").trim();
         String song_id = req.getParameter("songId").trim();

@@ -20,7 +20,7 @@ public class AdminController {
 
     //登录
     @ResponseBody
-    @RequestMapping(value = "/admin/login/status", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public Object loginStatus(HttpServletRequest req, HttpSession session){
         JSONObject jsonObject = new JSONObject();
 

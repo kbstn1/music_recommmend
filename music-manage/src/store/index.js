@@ -5,11 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    HOST: 'http://localhost:8088',
+    isPlay: false,
+    url: '',
+    id: ''
+  },
+  getters: {
+    isPlay: state => state.isPlay,
+    url: state => state.url,
+    id: state => state.id
   },
   mutations: {
-  },
-  actions: {
-  },
-  modules: {
+    setIsPlay: (state, isPlay) => { state.isPlay = isPlay },
+    setUrl: (state, url) => { state.url = url },
+    setId: (state, id) => { state.id = id }
   }
 })

@@ -30,10 +30,10 @@ public class SongController {
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        //文件最大10M,DataUnit提供5中类型B,KB,MB,GB,TB
-        factory.setMaxFileSize(DataSize.of(10, DataUnit.MEGABYTES));
-        /// 设置总上传数据总大小10M
-        factory.setMaxRequestSize(DataSize.of(10, DataUnit.MEGABYTES));
+        //文件最大20M,DataUnit提供5中类型B,KB,MB,GB,TB
+        factory.setMaxFileSize(DataSize.of(20, DataUnit.MEGABYTES));
+        /// 设置总上传数据总大小20M
+        factory.setMaxRequestSize(DataSize.of(20, DataUnit.MEGABYTES));
         return factory.createMultipartConfig();
     }
 
@@ -143,7 +143,6 @@ public class SongController {
         String singer_name = req.getParameter("singerName").trim();
         String name = req.getParameter("name").trim();
         String introduction = req.getParameter("introduction").trim();
-        String lyric = req.getParameter("lyric").trim();
 
         Song song = new Song();
         song.setId(Integer.parseInt(id));
@@ -252,5 +251,12 @@ public class SongController {
         }finally {
             return jsonObject;
         }
+    }
+
+    //返回指定ID用户收藏的歌曲
+    @RequestMapping(value = "/song/collect", method = RequestMethod.GET)
+    public Object collectSongOfUser(HttpServletRequest req){
+        String userId = req.getParameter("userId");
+        return songService.collectSongOfUser(Integer.parseInt(userId));
     }
 }

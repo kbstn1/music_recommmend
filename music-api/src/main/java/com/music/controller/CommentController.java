@@ -59,7 +59,7 @@ public class CommentController {
     }
 
     //删除评论
-    @RequestMapping(value = "/comment/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/comment/delete", method = RequestMethod.DELETE)
     public Object deleteComment(HttpServletRequest req){
         String id = req.getParameter("id");
         return commentService.deleteComment(Integer.parseInt(id));
