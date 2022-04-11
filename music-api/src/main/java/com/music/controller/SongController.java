@@ -259,4 +259,11 @@ public class SongController {
         String userId = req.getParameter("userId");
         return songService.collectSongOfUser(Integer.parseInt(userId));
     }
+
+    //返回指定关键词的歌曲
+    @RequestMapping(value = "/song/search", method = RequestMethod.GET)
+    public Object searchSong(HttpServletRequest req){
+        String keyword = req.getParameter("keyword").trim();
+        return songService.selectByKeyword('%' + keyword + '%');
+    }
 }

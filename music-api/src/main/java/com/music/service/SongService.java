@@ -25,4 +25,6 @@ public interface SongService {
     List<Song> songOfName(String name);
 
     List<Song> collectSongOfUser(Integer userId);
+
+    List<Song> selectByKeyword(String keyword);
 }

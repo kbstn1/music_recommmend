@@ -207,6 +207,11 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <select id="collectSongOfUser" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-        select * from collect,song where collect.user_id=#{userId} and collect.song_id=song.id
+        select * from song,collect where collect.user_id=#{userId} and collect.song_id=song.id
+    </select>
+    <select id="selectByKeyword" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select *
+        from song
+        where singer_name like #{keyword, jdbcType=VARCHAR} or name like  #{keyword, jdbcType=VARCHAR}
     </select>
 </mapper>

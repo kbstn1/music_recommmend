@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -95,6 +96,31 @@ public class ConsumerController {
             jsonObject.put("msg", "注册失败");
             return jsonObject;
         }
+    }
+
+    //判断是否登录成功
+    @ResponseBody
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    public Object loginStatus(HttpServletRequest req, HttpSession session){
+
+        JSONObject jsonObject = new JSONObject();
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        //System.out.println(username+"  "+password);
+        boolean res = consumerService.veritypasswd(username, password);
+
+        if (res){
+            jsonObject.put("code", 1);
+            jsonObject.put("msg", "登录成功");
+            jsonObject.put("userMsg", consumerService.loginStatus(username));
+            session.setAttribute("username", username);
+            return jsonObject;
+        }else {
+            jsonObject.put("code", 0);
+            jsonObject.put("msg", "用户名或密码错误");
+            return jsonObject;
+        }
+
     }
 
     //返回所有用户

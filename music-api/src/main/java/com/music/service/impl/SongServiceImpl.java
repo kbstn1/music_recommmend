@@ -72,4 +72,7 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public List<Song> collectSongOfUser(Integer userId) { return songMapper.collectSongOfUser(userId);}
+
+    @Override
+    public List<Song> selectByKeyword(String keyword) { return songMapper.selectByKeyword(keyword);}
 }

@@ -38,4 +38,6 @@ public interface SongMapper {
     List<Song> songOfName(String name);
 
     List<Song> collectSongOfUser(Integer id);
+
+    List<Song> selectByKeyword(String keyword);
 }
