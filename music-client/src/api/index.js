@@ -18,6 +18,8 @@ export const getUserOfId = (id) => get(`user/detail?id=${id}`)
 export const getAllSong = () => get('song/all')
 // 搜索歌曲
 export const selectByKeyword = (keyword) => get(`song/search?keyword=${keyword}`)
+// 返回指定歌曲ID的歌曲
+export const getSongOfId = (id) => get(`song/detail?id=${id}`)
 
 
 
@@ -26,3 +28,11 @@ export const selectByKeyword = (keyword) => get(`song/search?keyword=${keyword}`
 export const getCollectionOfUser = (userId) => get(`song/collect?userId=${userId}`)
 // 添加收藏的歌曲
 export const setCollection = (data) => post(`collection/add`, data)
+
+
+// ===================== 评论 API======================
+// 添加评论
+export const setComment = (data) => post(`comment/add`, data)
+// 返回所有评论
+export const getAllComment = (songId) => get(`comment/song/detail?songId=${songId}`)
+

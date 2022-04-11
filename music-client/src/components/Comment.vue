@@ -28,12 +28,6 @@
             <li class="time">{{item.createTime}}</li>
           </ul>
         </div>
-        <div class="up" ref="up" @click="postUp(item.id, item.up, index)">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-zan"></use>
-          </svg>
-          {{item.up}}
-        </div>
       </li>
     </ul>
   </div>
@@ -42,14 +36,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import mixin from '../mixins'
-import { getUserOfId, setComment, setLike, getAllComment } from '../api/index'
+import { getUserOfId, setComment, getAllComment } from '../api/index'
 
 export default {
   name: 'comment',
   mixins: [mixin],
   props: {
     playId: Number, // 歌曲ID或歌单ID
-    type: Number // 歌单（1）/歌曲（0）
   },
   data () {
     return {
@@ -79,7 +72,7 @@ export default {
   methods: {
     // 获取所有评论
     getComment () {
-      getAllComment(this.type, this.playId)
+      getAllComment(this.playId)
         .then(res => {
           this.commentList = res
           for (let item of res) {
@@ -104,15 +97,9 @@ export default {
     // 提交评论
     postComment () {
       if (this.loginIn) {
-        // 0 代表歌曲， 1 代表歌单
         let params = new URLSearchParams()
-        if (this.type === 1) {
-          params.append('songListId', this.playId)
-        } else if (this.type === 0) {
-          params.append('songId', this.playId)
-        }
+        params.append('songId', this.$route.params.id)
         params.append('userId', this.userId)
-        params.append('type', this.type)
         params.append('content', this.textarea)
         setComment(params)
           .then(res => {
@@ -122,26 +109,6 @@ export default {
               this.notify('评论成功', 'success')
             } else {
               this.notify('评论失败', 'error')
-            }
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      } else {
-        this.notify('请先登录', 'warning')
-      }
-    },
-    // 点赞
-    postUp (id, up, index) {
-      if (this.loginIn) {
-        let params = new URLSearchParams()
-        params.append('id', id)
-        params.append('up', up + 1)
-        setLike(params)
-          .then(res => {
-            if (res.code === 1) {
-              this.$refs.up[index].children[0].style.color = '#2796dd'
-              this.getComment()
             }
           })
           .catch(err => {

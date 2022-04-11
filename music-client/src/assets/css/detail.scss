@@ -1,0 +1,52 @@
+@import "var.scss";
+
+.song-detail {
+  margin: auto;
+  margin-top: $header-height + 20px;
+  width: 700px;
+  background-color: $color-white;
+  border-radius: 12px;
+  padding: 0 20px 50px 20px;
+  font-family: $font-family;
+
+  .detail-title {
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 2px solid $color-black;
+  }
+
+  .detail-body {
+    display: flex;
+    margin: 20px auto;
+    width: 100%;
+    .body-left {
+      width: 40%;
+      img {
+        width: 100%;
+      }
+      
+    }
+
+    .body-right {
+      padding: 30px;
+      width: 60%;
+      font-size: large;
+
+      div {
+        padding-bottom: 30px;
+      }
+    }
+  }
+}
+
+.detail-fade-enter,
+.detail-fade-leave-to {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+.detail-fade-enter-active,
+.detail-fade-leave-active {
+  transition: all 0.3s ease;
+}

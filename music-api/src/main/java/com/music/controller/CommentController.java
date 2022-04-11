@@ -31,6 +31,7 @@ public class CommentController {
 
         Comment comment = new Comment();
         comment.setUserId(Integer.parseInt(user_id));
+        comment.setSongId(Integer.parseInt(song_id));
         comment.setContent(content);
         comment.setCreateTime(new Date());
         boolean res = commentService.addComment(comment);

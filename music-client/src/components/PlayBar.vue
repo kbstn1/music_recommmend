@@ -334,7 +334,7 @@ export default {
       }
     },
     goPlayerPage () {
-      this.$router.push({path: `/lyric/${this.id}`})
+      this.$router.push({path: `/detail/${this.id}`})
     },
     collection () {
       if (this.loginIn) {
