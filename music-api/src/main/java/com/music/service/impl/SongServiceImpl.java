@@ -75,4 +75,16 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public List<Song> selectByKeyword(String keyword) { return songMapper.selectByKeyword(keyword);}
+
+    @Override
+    public List<Song> selectPlayRank() { return songMapper.selectPlayRank();}
+
+    @Override
+    public List<Song> selectDownloadRank() { return songMapper.selectDownloadRank();}
+
+    @Override
+    public List<Song> selectCollectRank() { return songMapper.selectCollectRank();}
+
+    @Override
+    public List<Song> selectHotRank() { return songMapper.selectHotRank();}
 }

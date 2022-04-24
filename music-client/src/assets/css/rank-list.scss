@@ -1,0 +1,28 @@
+@import "var.scss";
+
+.rank-list {
+  margin: 30px 20%;
+  margin-top: $header-height + 20px;
+  padding-bottom: 20px;
+  background-color: $color-white;
+
+  .list-header {
+    width: 100%;
+    padding: 0 40px;
+    li {
+      display: inline-block;
+      line-height: 40px;
+      margin: 20px 20px 15px 20px;
+      font-size: 16px;
+      font-weight: 400;
+      color: $color-grey;
+      border-bottom: none;
+      cursor: pointer;
+    }
+    li.active {
+      color: $color-black;
+      font-weight: 500;
+      border-bottom: 3px solid $color-black;
+    }
+  }
+}

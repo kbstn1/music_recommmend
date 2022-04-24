@@ -27,4 +27,12 @@ public interface SongService {
     List<Song> collectSongOfUser(Integer userId);
 
     List<Song> selectByKeyword(String keyword);
+
+    List<Song> selectPlayRank();
+
+    List<Song> selectDownloadRank();
+
+    List<Song> selectCollectRank();
+
+    List<Song> selectHotRank();
 }

@@ -86,7 +86,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import mixin from '../mixins'
-import { setCollection, download, getCollectionOfUser } from '../api/index'
+import { setCollection, download, getCollectionOfUser, addDownloadRecord, addPlayRecord } from '../api/index'
 
 export default {
   name: 'play-bar',
@@ -164,11 +164,21 @@ export default {
   methods: {
     // 下载
     download () {
+      let params = new URLSearchParams()
+        params.append('songId', this.id)
+        params.append('userId', this.userId)
+      addDownloadRecord(params)
+      .then(res=>{
+        console.log(res)
+      })
+      .catch(err=>{
+        this.notify('收集下载数据失败','error')
+      })
       download(this.url)
         .then(res => {
           let content = res.data
           let eleLink = document.createElement('a')
-          eleLink.download = `${this.artist}-${this.title}.mp3`
+          eleLink.download = `${this.title}.mp3`
           eleLink.style.display = 'none'
           // 字符内容转变成blob地址
           let blob = new Blob([content])
@@ -331,6 +341,16 @@ export default {
           .catch(err => {
             console.log(err)
           })
+        let params = new URLSearchParams()
+        params.append('songId', this.id)
+        params.append('userId', this.userId)
+        addPlayRecord(params)
+        .then(res=>{
+          console.log(res)
+        })
+        .catch(err=>{
+          this.notify('收集播放数据失败','error')
+        })
       }
     },
     goPlayerPage () {

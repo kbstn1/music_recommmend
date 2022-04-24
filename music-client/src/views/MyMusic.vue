@@ -80,7 +80,6 @@ export default {
     getCollection(userId) {
       getCollectionOfUser(userId)
         .then(res=>{
-          console.log(res)
           this.collectList = res
           this.$store.commit('setListOfSongs', this.collectList)
         })

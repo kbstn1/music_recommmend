@@ -49,7 +49,7 @@ public class SongController {
     //添加歌曲
     @ResponseBody
     @RequestMapping(value = "/song/add", method = RequestMethod.POST)
-    public Object addSong(HttpServletRequest req, @RequestParam("file") MultipartFile mpfile){
+    public Object addSong(HttpServletRequest req, @RequestParam("file") MultipartFile mpfile) {
         JSONObject jsonObject = new JSONObject();
         String singer_name = req.getParameter("singerName").trim();
         String name = req.getParameter("name").trim();
@@ -64,12 +64,12 @@ public class SongController {
         String fileName = mpfile.getOriginalFilename();
         String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "song";
         File file1 = new File(filePath);
-        if (!file1.exists()){
+        if (!file1.exists()) {
             file1.mkdir();
         }
 
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String storeUrlPath = "/song/"+fileName;
+        String storeUrlPath = "/song/" + fileName;
         try {
             mpfile.transferTo(dest);
             Song song = new Song();
@@ -102,34 +102,34 @@ public class SongController {
 
     //返回所有歌曲
     @RequestMapping(value = "/song/all", method = RequestMethod.GET)
-    public Object allSong(){
+    public Object allSong() {
         return songService.allSong();
     }
 
     //返回指定歌曲ID的歌曲
     @RequestMapping(value = "/song/detail", method = RequestMethod.GET)
-    public Object songOfId(HttpServletRequest req){
+    public Object songOfId(HttpServletRequest req) {
         String id = req.getParameter("id");
         return songService.songOfId(Integer.parseInt(id));
     }
 
     //返回指定歌手名的歌曲
     @RequestMapping(value = "/song/singerName/detail", method = RequestMethod.GET)
-    public Object songOfSingerName(HttpServletRequest req){
+    public Object songOfSingerName(HttpServletRequest req) {
         String singerName = req.getParameter("singerName");
         return songService.songOfSingerName('%' + singerName + '%');
     }
 
     //返回指定歌曲名的歌曲
     @RequestMapping(value = "/song/name/detail", method = RequestMethod.GET)
-    public Object songOfName(HttpServletRequest req){
+    public Object songOfName(HttpServletRequest req) {
         String name = req.getParameter("name").trim();
         return songService.songOfName('%' + name + '%');
     }
 
     //删除歌曲
     @RequestMapping(value = "/song/delete", method = RequestMethod.DELETE)
-    public Object deleteSong(HttpServletRequest req){
+    public Object deleteSong(HttpServletRequest req) {
         String id = req.getParameter("id");
         return songService.deleteSong(Integer.parseInt(id));
     }
@@ -137,7 +137,7 @@ public class SongController {
     //更新歌曲信息
     @ResponseBody
     @RequestMapping(value = "/song/update", method = RequestMethod.POST)
-    public Object updateSongMsg(HttpServletRequest req){
+    public Object updateSongMsg(HttpServletRequest req) {
         JSONObject jsonObject = new JSONObject();
         String id = req.getParameter("id").trim();
         String singer_name = req.getParameter("singerName").trim();
@@ -152,11 +152,11 @@ public class SongController {
         song.setUpdateTime(new Date());
 
         boolean res = songService.updateSongMsg(song);
-        if (res){
+        if (res) {
             jsonObject.put("code", 1);
             jsonObject.put("msg", "修改成功");
             return jsonObject;
-        }else {
+        } else {
             jsonObject.put("code", 0);
             jsonObject.put("msg", "修改失败");
             return jsonObject;
@@ -166,7 +166,7 @@ public class SongController {
     //更新歌曲图片
     @ResponseBody
     @RequestMapping(value = "/song/img/update", method = RequestMethod.POST)
-    public Object updateSongPic(@RequestParam("file") MultipartFile urlFile, @RequestParam("id")int id){
+    public Object updateSongPic(@RequestParam("file") MultipartFile urlFile, @RequestParam("id") int id) {
         JSONObject jsonObject = new JSONObject();
 
         if (urlFile.isEmpty()) {
@@ -174,36 +174,36 @@ public class SongController {
             jsonObject.put("msg", "音乐上传失败！");
             return jsonObject;
         }
-        String fileName = System.currentTimeMillis()+urlFile.getOriginalFilename();
+        String fileName = System.currentTimeMillis() + urlFile.getOriginalFilename();
         String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "img" + System.getProperty("file.separator") + "songPic";
         File file1 = new File(filePath);
-        if (!file1.exists()){
+        if (!file1.exists()) {
             file1.mkdir();
         }
 
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String storeUrlPath = "/img/songPic/"+fileName;
+        String storeUrlPath = "/img/songPic/" + fileName;
         try {
             urlFile.transferTo(dest);
             Song song = new Song();
             song.setId(id);
             song.setPic(storeUrlPath);
             boolean res = songService.updateSongPic(song);
-            if (res){
+            if (res) {
                 jsonObject.put("code", 1);
                 jsonObject.put("avator", storeUrlPath);
                 jsonObject.put("msg", "上传成功");
                 return jsonObject;
-            }else {
+            } else {
                 jsonObject.put("code", 0);
                 jsonObject.put("msg", "上传失败");
                 return jsonObject;
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             jsonObject.put("code", 0);
             jsonObject.put("msg", "上传失败" + e.getMessage());
             return jsonObject;
-        }finally {
+        } finally {
             return jsonObject;
         }
     }
@@ -211,7 +211,7 @@ public class SongController {
     //更新歌曲URL
     @ResponseBody
     @RequestMapping(value = "/song/url/update", method = RequestMethod.POST)
-    public Object updateSongUrl(@RequestParam("file") MultipartFile urlFile, @RequestParam("id")int id){
+    public Object updateSongUrl(@RequestParam("file") MultipartFile urlFile, @RequestParam("id") int id) {
         JSONObject jsonObject = new JSONObject();
 
         if (urlFile.isEmpty()) {
@@ -222,48 +222,72 @@ public class SongController {
         String fileName = urlFile.getOriginalFilename();
         String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "song";
         File file1 = new File(filePath);
-        if (!file1.exists()){
+        if (!file1.exists()) {
             file1.mkdir();
         }
 
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
-        String storeUrlPath = "/song/"+fileName;
+        String storeUrlPath = "/song/" + fileName;
         try {
             urlFile.transferTo(dest);
             Song song = new Song();
             song.setId(id);
             song.setUrl(storeUrlPath);
             boolean res = songService.updateSongUrl(song);
-            if (res){
+            if (res) {
                 jsonObject.put("code", 1);
                 jsonObject.put("avator", storeUrlPath);
                 jsonObject.put("msg", "上传成功");
                 return jsonObject;
-            }else {
+            } else {
                 jsonObject.put("code", 0);
                 jsonObject.put("msg", "上传失败");
                 return jsonObject;
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             jsonObject.put("code", 0);
             jsonObject.put("msg", "上传失败" + e.getMessage());
             return jsonObject;
-        }finally {
+        } finally {
             return jsonObject;
         }
     }
 
     //返回指定ID用户收藏的歌曲
     @RequestMapping(value = "/song/collect", method = RequestMethod.GET)
-    public Object collectSongOfUser(HttpServletRequest req){
+    public Object collectSongOfUser(HttpServletRequest req) {
         String userId = req.getParameter("userId");
         return songService.collectSongOfUser(Integer.parseInt(userId));
     }
 
     //返回指定关键词的歌曲
     @RequestMapping(value = "/song/search", method = RequestMethod.GET)
-    public Object searchSong(HttpServletRequest req){
+    public Object searchSong(HttpServletRequest req) {
         String keyword = req.getParameter("keyword").trim();
         return songService.selectByKeyword('%' + keyword + '%');
+    }
+
+    //按播放排行
+    @RequestMapping(value = "/song/rank/play", method = RequestMethod.GET)
+    public Object selectPlayRank() {
+        return songService.selectPlayRank();
+    }
+
+    //按下载排行
+    @RequestMapping(value = "/song/rank/download", method = RequestMethod.GET)
+    public Object selectDownloadRank() {
+        return songService.selectDownloadRank();
+    }
+
+    //按收藏排行
+    @RequestMapping(value = "/song/rank/collect", method = RequestMethod.GET)
+    public Object selectCollectRank() {
+        return songService.selectCollectRank();
+    }
+
+    //热门歌曲
+    @RequestMapping(value = "/song/rank/hot", method = RequestMethod.GET)
+    public Object selectHotRank() {
+        return songService.selectHotRank();
     }
 }

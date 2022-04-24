@@ -1,4 +1,4 @@
-import { selectByKeyword, getCollectionOfUser } from '../api/index'
+import { selectByKeyword, getCollectionOfUser, addPlayRecord } from '../api/index'
 import { mapGetters } from 'vuex'
 
 const mixin = {
@@ -57,6 +57,16 @@ const mixin = {
           .catch(err => {
             console.log(err)
           })
+        let params = new URLSearchParams()
+        params.append('songId', id)
+        params.append('userId', this.userId)
+        addPlayRecord(params)
+        .then(res=>{
+          console.log(res)
+        })
+        .catch(err=>{
+          this.notify('收集播放数据失败','error')
+        })
       }
     },
     // 搜索音乐

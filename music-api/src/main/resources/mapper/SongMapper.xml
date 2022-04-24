@@ -214,4 +214,29 @@
         from song
         where singer_name like #{keyword, jdbcType=VARCHAR} or name like  #{keyword, jdbcType=VARCHAR}
     </select>
+    <select id="selectPlayRank" resultMap="BaseResultMap">
+        select * from song,(select song_id,count(song_id) as count
+                            from play
+                            group by song_id limit 50) as Temp
+        where song.id=Temp.song_id order by Temp.count desc
+    </select>
+    <select id="selectDownloadRank" resultMap="BaseResultMap">
+        select * from song,(select song_id,count(song_id) as count
+                            from download
+                            group by song_id limit 50) as Temp
+        where song.id=Temp.song_id order by Temp.count desc
+    </select>
+    <select id="selectCollectRank" resultMap="BaseResultMap">
+        select * from song,(select song_id,count(song_id) as count
+                            from collect
+                            group by song_id limit 50) as Temp
+        where song.id=Temp.song_id order by Temp.count desc
+    </select>
+    <select id="selectHotRank" resultMap="BaseResultMap">
+        select * from song,(select song_id,count(song_id) as count
+                            from play
+                            where week(create_time) >= week(now())-1
+                            group by song_id limit 50) as Temp
+        where song.id=Temp.song_id order by Temp.count desc
+    </select>
 </mapper>
