@@ -2,7 +2,10 @@ package com.music.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.music.domain.Song;
+import com.music.service.RecommendService;
+import com.music.service.impl.RecommendServiceImpl;
 import com.music.service.impl.SongServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +29,9 @@ import java.util.Date;
 public class SongController {
     @Autowired
     private SongServiceImpl songService;
+
+    @Autowired
+    private RecommendServiceImpl recommendService;
 
     @Bean
     public MultipartConfigElement multipartConfigElement() {
@@ -289,5 +295,28 @@ public class SongController {
     @RequestMapping(value = "/song/rank/hot", method = RequestMethod.GET)
     public Object selectHotRank() {
         return songService.selectHotRank();
+    }
+
+    //推荐歌曲
+    @RequestMapping(value = "/song/recommend", method = RequestMethod.GET)
+    public Object recommendSong(HttpServletRequest req){
+        String userId = req.getParameter("userId");
+        System.out.println("-------------userId=" + userId);
+        //如果userId为空就返回所有歌单
+        if(StringUtils.isBlank(userId)) {
+            return songService.allSong();
+        }else{
+            return recommendService.recommendSongByRank(Integer.parseInt(userId));
+        }
+
+        //如果用户id不能转为Integer
+/*        try {
+            System.out.println("-------------userId=" + userId);
+            int id = Integer.parseInt(userId);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return songListService.allSongList();
+        }*/
+
     }
 }

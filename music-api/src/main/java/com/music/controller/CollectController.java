@@ -2,7 +2,10 @@ package com.music.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.music.domain.Collect;
+import com.music.domain.Rank;
+import com.music.service.RankService;
 import com.music.service.impl.CollectServiceImpl;
+import com.music.service.impl.RankServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,9 @@ import java.util.Date;
 public class CollectController {
     @Autowired
     private CollectServiceImpl collectService;
+
+    @Autowired
+    private RankServiceImpl rankService;
 
     //添加收藏的歌曲
     @ResponseBody
@@ -41,6 +47,16 @@ public class CollectController {
         collect.setSongId(Integer.parseInt(song_id));
         collect.setCreateTime(new Date());
         boolean res = collectService.addCollection(collect);
+        Rank rank = new Rank();
+        rank.setUserId(Integer.parseInt(user_id));
+        rank.setSongId(Integer.parseInt(song_id));
+        if(!rankService.rankOfSongByConsumer(rank).isEmpty()){
+            rank.setScore(rankService.rankOfSongByConsumer(rank).get(0).getScore()+100);
+            rankService.updateRankRecord(rank);
+        } else {
+            rank.setScore(100);
+            rankService.addRankRecord(rank);
+        }
         if (res){
             jsonObject.put("code", 1);
             jsonObject.put("msg", "收藏成功");

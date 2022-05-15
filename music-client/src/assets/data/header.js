@@ -9,6 +9,9 @@ const navMsg = [{
   name: '排行榜',
   path: '/rank-list'
 }, {
+  name: '个性化推荐',
+  path: '/my-recommend'
+}, {
   name: '我的音乐',
   path: '/my-music'
 }]

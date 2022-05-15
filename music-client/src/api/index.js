@@ -28,6 +28,8 @@ export const getPlayRank = () => get(`song/rank/play`)
 export const getCollectRank = () => get(`song/rank/collect`)
 // 排行榜-下载
 export const getDownloadRank = () => get(`song/rank/download`)
+// 推荐
+export const getRecommendSong = (data) => get(`song/recommend`, data)
 
 
 

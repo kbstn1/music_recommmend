@@ -92,7 +92,7 @@ export default {
     goPage (path, value) {
       document.querySelector('.menu').classList.remove('show')
       this.changeIndex(value)
-      if (!this.loginIn && path === '/my-music') {
+      if (!this.loginIn && (path === '/my-music'||path === '/my-recommend')) {
         this.notify('请先登录', 'warning')
         this.$router.push({path: '/login-in'})
       } else {

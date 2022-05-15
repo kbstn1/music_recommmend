@@ -43,6 +43,11 @@ const routes = [
     component: () => import('views/MyMusic')
   },
   {
+    path: '/my-recommend',
+    name: 'my-recommend',
+    component: () => import('views/MyRecommend')
+  },
+  {
     path: '/rank-list',
     name: 'rank-list',
     component: () => import('views/RankList')
